@@ -39,6 +39,25 @@ namespace ImageProcess
                 var len = dialog.FileNames.Length;
                 ResizeImage imageHelper = new ResizeImage();
                 MessageBox.Show(String.Format("{0} files selected", len));
+                #region GET NAME AND COUNT
+                if (checkNameCount())
+                {
+                    var keyvalues = new Dictionary<string, int>();
+                    foreach (var file in dialog.FileNames)
+                    {
+                        keyvalues = getNameAndCount(file, keyvalues);
+                        process += 1;
+                    }
+                    var list = keyvalues.ToList();
+                    StringBuilder sb = new StringBuilder();
+                    foreach(var item in list)
+                    {
+                        sb.AppendLine(string.Format("{0}, {1}", item.Key, item.Value));
+                    }
+                    var result = sb.ToString();
+                    return;
+                }
+                #endregion
                 foreach (var file in dialog.FileNames)
                 {
                     imageHelper.Resize(getSelectedSize(), file, this.savePathTxt.Text);
@@ -55,6 +74,41 @@ namespace ImageProcess
             if (this.radioMedium.Checked) { size = ImageSize.MEDIUM; }
             if (this.radioLarge.Checked) { size = ImageSize.LARGE; }
             return size;
+        }
+
+        private bool checkNameCount()
+        {
+            if (this.radioNameCount.Checked)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private Dictionary<string,int> getNameAndCount(string currentFullPath, Dictionary<string, int> keyValues)
+        {
+
+            var fileNameSplits = currentFullPath.Split('\\');
+            var fileNameWithExt = fileNameSplits[fileNameSplits.Length - 1];
+            var fileName = fileNameWithExt.Split('.');
+            var materialAndCount = fileName[0].Split('_');
+            var key = materialAndCount[0];
+            var value = Convert.ToInt32(materialAndCount[1]);
+            if (keyValues.ContainsKey(key))
+            {
+                var nowValue = 0;
+                keyValues.TryGetValue(key, out nowValue);
+                if (value > nowValue)
+                {
+                    keyValues.Remove(key);
+                    keyValues.Add(key, value);
+                }
+            }
+            else
+            {
+                keyValues.Add(key, value);
+            }
+            return keyValues;
         }
 
     }

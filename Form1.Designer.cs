@@ -35,6 +35,7 @@
             this.radioSmall = new System.Windows.Forms.RadioButton();
             this.radioMedium = new System.Windows.Forms.RadioButton();
             this.radioLarge = new System.Windows.Forms.RadioButton();
+            this.radioNameCount = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label2
@@ -107,11 +108,23 @@
             this.radioLarge.Text = "LARGE";
             this.radioLarge.UseVisualStyleBackColor = true;
             // 
+            // radioNameCount
+            // 
+            this.radioNameCount.AutoSize = true;
+            this.radioNameCount.Location = new System.Drawing.Point(98, 325);
+            this.radioNameCount.Name = "radioNameCount";
+            this.radioNameCount.Size = new System.Drawing.Size(151, 24);
+            this.radioNameCount.TabIndex = 13;
+            this.radioNameCount.TabStop = true;
+            this.radioNameCount.Text = "Name and count";
+            this.radioNameCount.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.radioNameCount);
             this.Controls.Add(this.radioLarge);
             this.Controls.Add(this.radioMedium);
             this.Controls.Add(this.radioSmall);
@@ -134,6 +147,7 @@
         private System.Windows.Forms.RadioButton radioSmall;
         private System.Windows.Forms.RadioButton radioMedium;
         private System.Windows.Forms.RadioButton radioLarge;
+        private System.Windows.Forms.RadioButton radioNameCount;
     }
 }
 
